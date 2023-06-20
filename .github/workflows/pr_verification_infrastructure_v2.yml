@@ -21,7 +21,7 @@ jobs:
           ls -la
 
       - name: Call action from private repo
-        uses: azverugosandbox/workflows@main/.github/actions/hello-world-action
+        uses: azverugosandbox/workflows/.github/actions/hello-world-action
 
   test:
     if: always()
