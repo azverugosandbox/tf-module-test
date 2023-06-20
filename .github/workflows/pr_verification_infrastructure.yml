@@ -1,0 +1,56 @@
+name: Strategy Catalog Infrastructure - PR verification
+
+on:
+  pull_request:
+    paths:
+      - 'test/**'
+
+jobs:
+  #  build:
+  #    name: Build
+  #    runs-on: [self-hosted, ARM64]
+  #    container:
+  #      image: python:3.11
+  #    outputs:
+  #      ARTIFACT_REPOSITORY_ACCOUNT_ID: ${{ steps.artifact_repository_id.outputs.artifact_repository_id }}
+  #    steps:
+  #      - name: Setup awscli
+  #        run: |
+  #          apt update
+  #          pip install awscli
+  #
+  #      - name: Fetch artifact repository account id
+  #        id: artifact_repository_id
+  #        run: |
+  #          ARTIFACT_REPOSITORY_ACCOUNT_ID=$(aws ssm get-parameter --region ${{ env.AWS_REGION }} --name ${{ env.SSM_ARTIFACT_REPO_ACCOUNT_ID }} --query 'Parameter.Value' --output text)
+  #          echo "ARTIFACT_REPOSITORY_ACCOUNT_ID=${ARTIFACT_REPOSITORY_ACCOUNT_ID}" >> "$GITHUB_ENV"
+  #          echo "artifact_repository_id=$ARTIFACT_REPOSITORY_ACCOUNT_ID" >> $GITHUB_OUTPUT
+
+  code_style:
+    #    needs: build
+    name: Code Style Check
+    runs-on: ubuntu-latest
+    container:
+      image: python:3.11
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Show structure
+        run: |
+          ls -la
+
+  test:
+    if: always()
+    needs: code_style
+    name: Test 2
+    runs-on: ubuntu-latest
+    container:
+      image: python:3.11
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Show structure
+        run: |
+          ls -la
