@@ -22,6 +22,8 @@ jobs:
 
       - name: Call action from private repo
         uses: azverugosandbox/workflows/.github/actions/hello-world-action@main
+        with:
+          name: Alexey
 
   test:
     if: always()
